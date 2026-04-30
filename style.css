@@ -1,39 +1,37 @@
-body {
-    font-family: Arial;
-    margin: 0;
-    transition: 0.5s;
+const themeToggle = document.querySelector('.theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const body = document.body;
+
+// Check for saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    body.setAttribute('data-theme', savedTheme);
+    updateIcon(savedTheme);
 }
 
-header {
-    background: black;
-    color: white;
-    padding: 15px;
-    text-align: center;
+themeToggle.addEventListener('click', () => {
+    let currentTheme = body.getAttribute('data-theme');
+    let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateIcon(newTheme);
+});
+
+function updateIcon(theme) {
+    if (theme === 'dark') {
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+    } else {
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+    }
 }
 
-nav a {
-    margin: 10px;
-    color: white;
-    text-decoration: none;
-}
-
-section {
-    padding: 40px;
-    text-align: center;
-}
-
-.profile {
-    width: 150px;
-    border-radius: 50%;
-}
-
-img {
-    width: 200px;
-    margin: 10px;
-}
-
-/* Dark mode */
-.dark {
-    background: black;
-    color: white;
-}
+// Smooth Scroll Logic (Handled by CSS, but good to have JS fallback)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
