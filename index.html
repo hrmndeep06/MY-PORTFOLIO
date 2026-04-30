@@ -1,64 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio | Modern & Professional</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
-
-<header>
-    <h1>Harmandeep Kaur</h1>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#achievements">Achievements</a>
-        <a href="#projects">Projects</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
+    <nav class="navbar">
+        <div class="logo">PORTFOLIO</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="theme-toggle">
+            <i class="fas fa-moon" id="theme-icon"></i>
+        </div>
+        <div class="hamburger">
+            <span></span><span></span><span></span>
+        </div>
     </nav>
-    <button onclick="toggleMode()">🌙</button>
-</header>
 
-<section id="home">
-    <h2>Home</h2>
-    <img src="images/yourphoto.jpg" class="profile">
-    <p>Hello! I am a BBA student passionate about business and creativity.</p>
-</section>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Hi, I'm <span class="highlight">Alex Doe</span></h1>
+            <p>Computer Science Student & Aspiring Developer</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </section>
 
-<section id="about">
-    <h2>About Me</h2>
-    <p>I am currently pursuing BBA. I am interested in business management, creativity, and learning new technologies.</p>
-</section>
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <div class="about-container">
+            <div class="about-text">
+                <p>I am a passionate student currently pursuing my degree in Computer Science. I love building clean, functional, and user-friendly web applications.</p>
+                <div class="skills">
+                    <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>React</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section id="achievements">
-    <h2>Achievements</h2>
-    <ul>
-        <li>Completed AI4A course</li>
-        <li>Completed Design Thinking project</li>
-        <li>Certificates from Coursera and Netacad</li>
-    </ul>
-</section>
+    <section id="achievements" class="section bg-alt">
+        <h2>Achievements</h2>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-trophy"></i>
+                <h3>Hackathon Winner</h3>
+                <p>1st Place at the 2025 Tech-Innova Regional Hackathon.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-certificate"></i>
+                <h3>Certifications</h3>
+                <p>Google Professional Data Analytics Certificate.</p>
+            </div>
+        </div>
+    </section>
 
-<section id="projects">
-    <h2>Projects</h2>
-    <p><b>AI4A Project:</b> Created a project using artificial intelligence concepts.</p>
-    <p><b>Design Thinking Project:</b> Solved real-world problems using design thinking process.</p>
-</section>
+    <section id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="grid">
+            <div class="project-card">
+                <img src="https://via.placeholder.com/300x200" alt="Project 1">
+                <div class="p-3">
+                    <h3>E-Commerce UI</h3>
+                    <p>A sleek, responsive store interface built with React.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://via.placeholder.com/300x200" alt="Project 2">
+                <div class="p-3">
+                    <h3>Task Manager</h3>
+                    <p>A productivity app featuring local storage and drag-and-drop.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section id="gallery">
-    <h2>Gallery</h2>
-    <img src="images/certificate1.jpg">
-    <img src="images/project1.jpg">
-</section>
+    <section id="gallery" class="section bg-alt">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+            <img src="https://via.placeholder.com/200" alt="Work Life">
+            <img src="https://via.placeholder.com/200" alt="Coding">
+            <img src="https://via.placeholder.com/200" alt="Collaboration">
+            <img src="https://via.placeholder.com/200" alt="Event">
+        </div>
+    </section>
 
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Email: your@email.com</p>
-    <p>Phone: 1234567890</p>
-</section>
+    <section id="contact" class="section">
+        <h2>Get In Touch</h2>
+        <form class="contact-form">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </section>
 
-<script src="script.js"></script>
+    <footer>
+        <p>&copy; 2026 Alex Doe. All rights reserved.</p>
+    </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
