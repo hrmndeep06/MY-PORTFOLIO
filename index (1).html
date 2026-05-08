@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason Bastian | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --deep: #0d1f3c;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --text-muted: #8a9bb5;
+    --card-bg: rgba(255,255,255,0.04);
+    --border: rgba(201,168,76,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 4rem;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .dark-toggle {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.3s;
+  }
+  .dark-toggle:hover { background: var(--gold); color: var(--navy); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-circle {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-bg-line {
+    position: absolute;
+    left: 0; top: 50%;
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--white);
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .hero-name span { color: var(--gold); }
+
+  .hero-title {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin: 1.2rem 0 2rem;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-title strong { color: var(--cream); font-weight: 500; }
+
+  .hero-intro {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #a0b0c8;
+    max-width: 480px;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    letter-spacing: 0.03em;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--cream);
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* HERO PHOTO */
+  .hero-photo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-photo-frame {
+    position: relative;
+    width: 340px; height: 420px;
+  }
+
+  .hero-photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transform: rotate(3deg);
+  }
+
+  .hero-photo-frame::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 6px;
+    transform: rotate(-1.5deg);
+  }
+
+  .hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    filter: grayscale(15%) contrast(1.05);
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: -40px; left: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; position: relative; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--gold);
+    margin-top: 0.8rem;
+  }
+
+  /* divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 4rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--deep); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-bio {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: #a0b0c8;
+  }
+
+  .about-bio p + p { margin-top: 1rem; }
+
+  .about-details { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .detail-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+    transition: border-color 0.3s;
+  }
+  .detail-card:hover { border-color: var(--gold); }
+
+  .detail-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .detail-value {
+    font-size: 0.95rem;
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+  .tag {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    color: var(--gold-light);
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-timeline { display: flex; flex-direction: column; gap: 2rem; }
+
+  .edu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    padding: 1.8rem 2rem;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(201,168,76,0.03), transparent);
+  }
+  .edu-card:hover { transform: translateX(6px); }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .edu-school {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+  }
+
+  .edu-desc {
+    font-size: 0.88rem;
+    color: #7a8fa8;
+    margin-top: 0.8rem;
+    line-height: 1.7;
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  #achievements { background: var(--deep); }
+
+  .achieve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .achieve-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .achieve-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .achieve-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .achieve-card:hover::after { transform: scaleX(1); }
+
+  .achieve-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .achieve-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .achieve-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .achieve-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    padding: 0.2rem 0.7rem;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .project-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+
+  .project-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: rgba(201,168,76,0.1);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: -0.5rem;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .tech-tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #8a9bb5;
+    padding: 0.2rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .project-link {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.3s;
+  }
+  .project-link:hover { gap: 0.8rem; }
+
+  /* ── GALLERY ── */
+  #gallery { background: var(--deep); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .gallery-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .gallery-item:hover { border-color: var(--gold); transform: scale(1.02); }
+  .gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+
+  .gallery-placeholder {
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .gallery-placeholder .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .gallery-placeholder p { font-size: 0.8rem; font-family: 'DM Mono', monospace; }
+
+  .gallery-note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* ── CONTACT ── */
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-intro {
+    font-size: 1rem;
+    color: #a0b0c8;
+    line-height: 1.8;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+
+  .contact-link-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    color: var(--cream);
+  }
+  .contact-link-card:hover { border-color: var(--gold); color: var(--gold); transform: translateX(6px); }
+
+  .contact-icon { font-size: 1.2rem; }
+  .contact-text { flex: 1; }
+  .contact-type { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
+  .contact-val { font-size: 0.9rem; margin-top: 0.2rem; }
+
+  .contact-arrow { color: var(--gold); font-size: 1.2rem; }
+
+  /* contact form */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-group input, .form-group textarea {
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.9rem 1.2rem;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+
+  .form-submit {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2.5rem 4rem;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  footer span { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── DARK/LIGHT MODE ── */
+  body.light {
+    --navy: #f0ebe0;
+    --deep: #e8e1d5;
+    --cream: #1a1a2e;
+    --white: #0a1628;
+    --text-muted: #5a6a80;
+    --card-bg: rgba(0,0,0,0.04);
+    --border: rgba(150,120,60,0.25);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #home { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2rem; }
+    .hero-photo-wrap { order: -1; }
+    .hero-photo-frame { width: 220px; height: 280px; }
+    section { padding: 4rem 1.5rem; }
+    .divider { margin: 0 1.5rem; }
+    .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">JB</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="dark-toggle" onclick="toggleMode()">☀ Light</button>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-line"></div>
+
+  <div class="hero-text">
+    <div class="hero-badge">📍 Maharashtra, India · BBA 1st Year</div>
+    <h1 class="hero-name">Jason<br><span>Bastian</span></h1>
+    <p class="hero-title">
+      <strong>Business Analytics</strong> · Finance · Human Resources<br>
+      School of Computing, MiTVPU
+    </p>
+    <p class="hero-intro">
+      Aspiring business professional with a passion for data-driven decision making,
+      financial strategy, and people management. Currently pursuing BBA with specializations
+      in Analytics, Finance & HR — building skills to lead at the intersection of
+      business and technology.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-photo-wrap">
+    <div class="hero-photo-frame">
+      <img src="WhatsApp_Image_2026-05-06_at_11_46_56_AM.jpeg" alt="Jason Bastian" class="hero-photo">
+      <div class="photo-caption">JASON BASTIAN · BBA · 2026</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// 01 · About Me</div>
+  <h2 class="section-title">Who I Am</h2>
+
+  <div class="about-grid reveal">
+    <div>
+      <div class="about-bio">
+        <p>
+          I'm Jason Bastian, a first-year BBA student at MiTVPU, Maharashtra, India —
+          specializing in <strong style="color:var(--cream)">Business Analytics, Finance, and Human Resources</strong>.
+          I believe great business decisions are powered by data, empathy, and clear thinking.
+        </p>
+        <p>
+          My academic journey has been shaped by curiosity — from my schooling at LFC School
+          (SSC) to my science stream at SJHS Jr. College (HSC), I've always balanced
+          analytical rigor with a passion for understanding people and systems.
+        </p>
+        <p>
+          Outside of academics, I'm interested in financial markets, business strategy,
+          organizational behavior, and the growing intersection of AI with business operations.
+          I aim to become a professional who bridges data intelligence with human-centered leadership.
+        </p>
+      </div>
+
+      <div class="tags" style="margin-top:2rem;">
+        <span class="tag">Business Analytics</span>
+        <span class="tag">Finance</span>
+        <span class="tag">Human Resources</span>
+        <span class="tag">Data Driven</span>
+        <span class="tag">Strategic Thinking</span>
+        <span class="tag">Leadership</span>
+      </div>
+    </div>
+
+    <div class="about-details">
+      <div class="detail-card">
+        <div class="detail-label">Full Name</div>
+        <div class="detail-value">Jason Bastian</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Program</div>
+        <div class="detail-value">BBA — Business Analytics, Finance & HR</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Year</div>
+        <div class="detail-value">1st Year (2025–2026)</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Institution</div>
+        <div class="detail-value">MiTVPU, School of Computing</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Location</div>
+        <div class="detail-value">Maharashtra, India</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Goals</div>
+        <div class="detail-value">Business Analyst · Finance Manager · HR Leader</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">// 02 · Education</div>
+  <h2 class="section-title">Academic Journey</h2>
+
+  <div class="edu-timeline reveal">
+    <div class="edu-card">
+      <div class="edu-year">2025 – PRESENT</div>
+      <div class="edu-degree">Bachelor of Business Administration (BBA)</div>
+      <div class="edu-school">MiTVPU — School of Computing, Maharashtra, India</div>
+      <div class="edu-desc">
+        Specializing in Business Analytics, Finance, and Human Resources. Coursework includes
+        data analysis, financial management, organizational behavior, and AI for business.
+        Actively participating in digital portfolio, design thinking, and AI4A projects.
+      </div>
+    </div>
+
+    <div class="edu-card">
+      <div class="edu-year">HSC — Higher Secondary Certificate</div>
+      <div class="edu-degree">Science Stream</div>
+      <div class="edu-school">SJHS Jr. College of Science, Maharashtra</div>
+      <div class="edu-desc">
+        Completed HSC in the science stream, building strong foundations in analytical reasoning,
+        mathematics, and scientific methodology — skills that now drive my approach to
+        business analytics and data interpretation.
+      </div>
+    </div>
+
+    <div class="edu-card">
+      <div class="edu-year">SSC — Secondary School Certificate</div>
+      <div class="edu-degree">Secondary Education</div>
+      <div class="edu-school">LFC School, Maharashtra</div>
+      <div class="edu-desc">
+        Completed SSC education with a strong academic record. Developed early interests
+        in mathematics, communication, and leadership through school activities and events.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">// 03 · Achievements</div>
+  <h2 class="section-title">Certificates & Awards</h2>
+
+  <div class="achieve-grid reveal">
+    <div class="achieve-card">
+      <div class="achieve-icon">🤖</div>
+      <div class="achieve-title">AI for All (AI4A)</div>
+      <div class="achieve-desc">
+        Participated in the AI4A program, exploring how artificial intelligence is reshaping
+        business operations, analytics, and decision-making frameworks in modern organizations.
+      </div>
+      <span class="achieve-badge">MITVPU · 2025–26</span>
+    </div>
+
+    <div class="achieve-card">
+      <div class="achieve-icon">🧠</div>
+      <div class="achieve-title">Design Thinking Project</div>
+      <div class="achieve-desc">
+        Completed a design thinking project applying human-centered problem solving
+        to real-world business challenges, emphasizing empathy, ideation, and prototyping.
+      </div>
+      <span class="achieve-badge">MiTVPU · 2025–26</span>
+    </div>
+
+    <div class="achieve-card">
+      <div class="achieve-icon">📊</div>
+      <div class="achieve-title">Coursera Certification</div>
+      <div class="achieve-desc">
+        Completed relevant professional development courses on Coursera covering business,
+        analytics, and management fundamentals to complement classroom learning.
+      </div>
+      <span class="achieve-badge">COURSERA</span>
+    </div>
+
+    <div class="achieve-card">
+      <div class="achieve-icon">🌐</div>
+      <div class="achieve-title">NetAcad Program</div>
+      <div class="achieve-desc">
+        Engaged with Cisco NetAcad's digital skills curriculum, developing competencies
+        in networking fundamentals and digital literacy relevant to modern business environments.
+      </div>
+      <span class="achieve-badge">CISCO NETACAD</span>
+    </div>
+
+    <div class="achieve-card">
+      <div class="achieve-icon">💡</div>
+      <div class="achieve-title">YuvaAI Certificate</div>
+      <div class="achieve-desc">
+        Completed YuvaAI programme exploring youth entrepreneurship, AI tools and their
+        applications in emerging Indian business contexts and startup ecosystems.
+      </div>
+      <span class="achieve-badge">YUVAAI</span>
+    </div>
+
+    <div class="achieve-card">
+      <div class="achieve-icon">🏆</div>
+      <div class="achieve-title">Module 5 Project Presentation</div>
+      <div class="achieve-desc">
+        Built and deployed a fully functional digital portfolio website using HTML, CSS,
+        and JavaScript, showcasing technical and design skills alongside academic achievements.
+      </div>
+      <span class="achieve-badge">MiTVPU · 2026</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// 04 · Projects</div>
+  <h2 class="section-title">Work & Projects</h2>
+
+  <div class="projects-grid reveal">
+    <div class="project-card">
+      <div class="project-number">01</div>
+      <div class="project-title">Digital Portfolio Website</div>
+      <div class="project-desc">
+        Designed and built a full personal portfolio website using HTML, CSS and JavaScript.
+        Deployed on GitHub Pages as part of Module 5 Project Presentation. Includes
+        dark mode toggle, animated sections, and responsive layout.
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">HTML</span>
+        <span class="tech-tag">CSS</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">GitHub Pages</span>
+      </div>
+      <a href="#" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">02</div>
+      <div class="project-title">AI for Business — AI4A Project</div>
+      <div class="project-desc">
+        Explored how AI tools can optimize business workflows, from customer analytics
+        to HR automation. Documented findings and created a presentation on AI adoption
+        strategies for small and medium enterprises in India.
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">AI Tools</span>
+        <span class="tech-tag">Business Analysis</span>
+        <span class="tech-tag">Research</span>
+      </div>
+      <a href="#" class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">03</div>
+      <div class="project-title">Design Thinking Challenge</div>
+      <div class="project-desc">
+        Applied the 5-stage design thinking methodology (Empathize → Define → Ideate →
+        Prototype → Test) to identify and solve a real-world problem in the local
+        community context, presenting a validated business solution.
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">Design Thinking</span>
+        <span class="tech-tag">Problem Solving</span>
+        <span class="tech-tag">Prototyping</span>
+      </div>
+      <a href="#" class="project-link">View Project →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-label">// 05 · Gallery</div>
+  <h2 class="section-title">Photos & Certificates</h2>
+
+  <div class="gallery-grid reveal">
+    <div class="gallery-item" style="background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));">
+      <img src="WhatsApp_Image_2026-05-06_at_11_46_56_AM.jpeg" alt="Jason Bastian" style="width:100%;height:100%;object-fit:cover;border-radius:4px;opacity:0.85;">
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <div class="icon">🏅</div>
+        <p>AI4A Certificate</p>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <div class="icon">📜</div>
+        <p>Coursera Certificate</p>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <div class="icon">🌐</div>
+        <p>NetAcad Certificate</p>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <div class="icon">💡</div>
+        <p>YuvaAI Certificate</p>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <div class="icon">📸</div>
+        <p>Events & Activities</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-note">
+    📁 To add your certificates and photos: replace the placeholder cards above by adding
+    <code style="color:var(--gold);">&lt;img src="your-certificate.jpg"&gt;</code> inside the gallery items,
+    or upload scanned files to the <code style="color:var(--gold);">assets/</code> folder in your GitHub repo.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// 06 · Contact</div>
+  <h2 class="section-title">Get In Touch</h2>
+
+  <div class="contact-wrap reveal">
+    <div>
+      <p class="contact-intro">
+        I'm open to internship opportunities, collaborative projects, networking,
+        and conversations about business, analytics & finance. Feel free to reach out
+        through any of the channels below.
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:jasonbastian04@gmail.com" class="contact-link-card">
+          <span class="contact-icon">✉️</span>
+          <div class="contact-text">
+            <div class="contact-type">Email</div>
+            <div class="contact-val">jasonbastian04@gmail.com</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+
+        <a href="https://linkedin.com/in/jasonbastian" target="_blank" class="contact-link-card">
+          <span class="contact-icon">💼</span>
+          <div class="contact-text">
+            <div class="contact-type">LinkedIn</div>
+            <div class="contact-val">linkedin.com/in/jasonbastian</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+
+        <a href="https://github.com/jasonbastian" target="_blank" class="contact-link-card">
+          <span class="contact-icon">🐙</span>
+          <div class="contact-text">
+            <div class="contact-type">GitHub</div>
+            <div class="contact-val">github.com/jasonbastian</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+
+        <a href="tel:+917559423971" class="contact-link-card">
+          <span class="contact-icon">📱</span>
+          <div class="contact-text">
+            <div class="contact-type">Phone</div>
+            <div class="contact-val">+91 7559423971</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="contact-form">
+        <div class="form-group">
+          <input type="text" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Your Email">
+        </div>
+        <div class="form-group">
+          <textarea rows="5" placeholder="Your Message"></textarea>
+        </div>
+        <button class="form-submit">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed & Built by <span>Jason Bastian</span> · BBA · MiTVPU · Maharashtra, India · <span>2026</span></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Dark/light toggle
+  function toggleMode() {
+    document.body.classList.toggle('light');
+    const btn = document.querySelector('.dark-toggle');
+    btn.textContent = document.body.classList.contains('light') ? '🌙 Dark' : '☀ Light';
+  }
+
+  // Smooth active nav highlighting
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.getAttribute('id');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--gold)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
